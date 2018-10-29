@@ -1,0 +1,35 @@
+plugins {
+    id 'org.hidetake.swagger.generator' version '2.14.0'
+//    id "io.swagger.core.v3.swagger-gradle-plugin" version "2.0.5"
+}
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    swaggerCodegen 'io.swagger:swagger-codegen-cli:2.3.1'             // Swagger Codegen V2
+//    swaggerCodegen 'io.swagger:swagger-codegen-cli:jar:3.0.0-rc1'       // or Swagger Codegen V3
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+}
+
+swaggerSources {
+    petstore {
+        inputFile = file(project.projectDir.path + '/src/main/resources/api-def/MyApi.yaml')
+        code {
+            language = 'spring'
+            configFile = file(project.projectDir.path + '/src/main/resources/api-def/config.json')
+        }
+    }
+}
+
+//resolve {
+//    outputFileName = 'PetStoreAPI'
+//    outputFormat = 'JSON'
+//    prettyPrint = 'TRUE'
+//    classpath = sourceSets.main.runtimeClasspath
+//    resourcePackages = ['io.test']
+//    outputPath = 'test'
+//}
+
+
+

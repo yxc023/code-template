@@ -1,0 +1,23 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter')
+    compile group: 'org.apache.curator', name: 'curator-test', version: '2.12.0'
+
+    compile project(":dubbo/dubbo-api")
+    compile 'com.alibaba:dubbo:2.6.3'
+    compile 'com.alibaba.boot:dubbo-spring-boot-starter:0.2.0'
+
+    compile group: 'org.jodd', name: 'jodd-bean', version: '5.0.5'
+
+}
+
+configurations {
+    all {
+        resolutionStrategy {
+            // 根据我们常用的 zk 版本设置 client 版本
+            force 'org.apache.curator:curator-test:2.12.0'
+            force 'org.apache.zookeeper:zookeeper:3.4.6'
+        }
+    }
+}

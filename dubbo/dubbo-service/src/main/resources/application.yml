@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: my-dubbo-service
+
+logging:
+  level:
+   com.alibaba.dubbo: debug
+   org.apache.dubbo: debug
+
+dubbo:
+  application:
+    id: my-dubbo-service                            # id 会做为 bean: ApplicationConfig 的 beanName.
+    name: my-dubbo-service
+  registry:
+    id: registry1                                   # id 会做为 bean: RegistryConfig 的 beanName.
+    address: 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+    protocol: zookeeper                             # 使用的注册中心协议
+    group: my-dubbo-service
+  protocol:
+      id: dubbo
+      name: dubbo
+      port: 18080
+  scan:
+    basePackages: com.yangxiaochen.template.dubbo.service.impl  # 扫描需要被注册的 service, 而 reference 不需要这个配置
+
+  # 可以使用 multiple config, 声明多个 registries, applications, protocol
+  config:
+    multiple: true
+  registries:
+    registry2: # 类同与 dubbo.registry.id
+      address: 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183 # 地址
+      protocol: zookeeper
+      group: my-dubbo-service
+      default: true
+    registry3:
+      address: 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183 # 地址
+      protocol: zookeeper
+      group: my-dubbo-service
+#    username: username
+#    password: password
+#    default: true
+
+
+
+

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: my-dubbo-service-consumer
+
+logging:
+  level:
+   com.alibaba.dubbo: debug
+   org.apache.dubbo: debug
+
+dubbo:
+  application:
+    id: my-dubbo-service-consumer
+    name: my-dubbo-service-consumer
+  registry:
+    id: r1
+    address: 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+    protocol: zookeeper
+    group: my-dubbo-service
+
+
+

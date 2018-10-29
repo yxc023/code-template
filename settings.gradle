@@ -1,0 +1,8 @@
+rootProject.name = 'code-template'
+enableFeaturePreview('IMPROVED_POM_SUPPORT')
+
+include ":dubbo/dubbo-service"
+include ":dubbo/dubbo-consumer"
+include ":dubbo/dubbo-api"
+include 'http-api'
+

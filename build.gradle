@@ -1,0 +1,70 @@
+// 构建的前置脚本, 用于添加构建脚本的所需依赖
+buildscript {
+    // 设置变量参数
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+        springCloudVersion = 'Finchley.SR1'
+    }
+
+    // 声明依赖所在仓库
+    repositories {
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public"
+        }
+    }
+    // 声明依赖
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
+    }
+}
+
+
+// 对每个子工程设置
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+
+    // 设置 groupid 和 version, artifact id 由子项目文件夹名字决定
+    group = 'com.yangxiaochen'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = 1.8
+
+    // 设置项目依赖用的仓库
+    repositories {
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public"
+        }
+    }
+
+    // 设置通用依赖
+    dependencies {
+        compileOnly('org.projectlombok:lombok:1.16.18')
+        annotationProcessor 'org.projectlombok:lombok:1.16.18'
+
+        // 这个依赖是个 bom
+        implementation("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+        implementation("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+//        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    }
+
+    configurations {
+        all {
+            resolutionStrategy {
+                force 'org.yaml:snakeyaml:1.19'
+            }
+        }
+    }
+
+    // 设置 idea 在使用 gradle 刷新时不下载源码和 doc, 加快速度.
+    idea {
+        module {
+            downloadJavadoc = false
+            downloadSources = false
+        }
+    }
+}
+
+
+
